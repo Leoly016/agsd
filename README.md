@@ -114,7 +114,7 @@ TILE_H = 32
 ## 📸 Скриншот
 
 ```
-![test](screenshot.png)
+![test](./screenshot.png)
 ```
 
 ---
