@@ -113,10 +113,8 @@ TILE_H = 32
 
 ## 📸 Скриншот
 
-Добавь сюда:
-
 ```
-![Screenshot](screenshot.png)
+![test](screenshot.png)
 ```
 
 ---
