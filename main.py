@@ -287,9 +287,14 @@ def copy_line_to_clipboard(line):
 def draw_json():
     global copy_status, copy_status_timer, json_line
 
+    if result > -1 and grid == [-1] * 9:
+        craft_list = [-99, -1, -1, -1, -1, -1, -1, -1, -1]
+    else:
+        craft_list = grid
+
     json_line = '{"id": %s, "craft": [%s]}' % (
         result,
-        ','.join(str(x) for x in grid)
+        ','.join(str(x) for x in craft_list)
     )
 
     line_surface = font.render(json_line, True, (220,220,220))
