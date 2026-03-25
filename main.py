@@ -35,64 +35,35 @@ font = pygame.font.SysFont("consolas", 16)
 
 # ================= SLICE =======================
 
-def slice_auto(path):
-    img = Image.open(path).convert("RGBA")
-    arr = np.array(img)
+# ================= SLICE =======================
 
-    h, w = arr.shape[:2]
-    visited = np.zeros((h, w), bool)
+TILE_W = 32
+TILE_H = 32
+
+def slice_auto(path, tile_w=32, tile_h=32, skip_empty=False):
+    img = Image.open(path).convert("RGBA")
+    w, h = img.size
 
     tiles = []
     tid = 0
 
-    def flood(sy, sx):
-        stack = [(sy, sx)]
-        visited[sy, sx] = True
+    for y in range(0, h, tile_h):
+        for x in range(0, w, tile_w):
+            crop = img.crop((x, y, min(x + tile_w, w), min(y + tile_h, h)))
 
-        minx = maxx = sx
-        miny = maxy = sy
+            if skip_empty:
+                arr = np.array(crop)
+                if np.all(arr[:, :, 3] == 0):
+                    continue
 
-        while stack:
-            y, x = stack.pop()
+            surf = pygame.image.fromstring(
+                crop.tobytes(),
+                crop.size,
+                "RGBA"
+            )
 
-            for ny in range(y-1, y+2):
-                for nx in range(x-1, x+2):
-                    if 0 <= ny < h and 0 <= nx < w:
-                        if not visited[ny, nx] and arr[ny, nx, 3] > 20:
-                            visited[ny, nx] = True
-                            stack.append((ny, nx))
-
-                            minx = min(minx, nx)
-                            maxx = max(maxx, nx)
-                            miny = min(miny, ny)
-                            maxy = max(maxy, ny)
-
-        return minx, miny, maxx, maxy
-
-    for y in range(h):
-        for x in range(w):
-            if not visited[y, x] and arr[y, x, 3] > 20:
-                minx, miny, maxx, maxy = flood(y, x)
-
-                crop = img.crop((minx, miny, maxx+1, maxy+1))
-
-                # центрируем в квадрат
-                size = max(crop.size)
-                square = Image.new("RGBA", (size, size), (0,0,0,0))
-                square.paste(
-                    crop,
-                    ((size - crop.size[0])//2,
-                     (size - crop.size[1])//2)
-                )
-
-                surf = pygame.image.fromstring(
-                    square.tobytes(),
-                    square.size,
-                    "RGBA"
-                )
-
-                tiles.append((tid, surf))
-                tid += 1
+            tiles.append((tid, surf))
+            tid += 1
 
     return tiles
 
