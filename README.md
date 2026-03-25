@@ -6,13 +6,13 @@
 Все библиотеки, которые нужно установить:
 
 PLI
-pip install pillow
-py -m pip install pillow
-python -m pip install pillow
+"pip install pillow"
+"py -m pip install pillow"
+"python -m pip install pillow"
 
 numpy
-pip install numpy
-py -m pip install numpy
-python -m pip install numpy
+"pip install numpy"
+"py -m pip install numpy"
+"python -m pip install numpy"
 
 Суть программы в том, что вы на верстак выкладываете крафт, допустим четыре доски и в желтую ячейку верстак. И мы получаем код для json файла, и магией оно появляется на твоем сайте.
