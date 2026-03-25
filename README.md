@@ -43,9 +43,9 @@
 ## ⚙️ Установка
 
 ```bash
-pip install pygame pillow numpy pyperclip
+pip install pygame-ce pillow numpy pyperclip
 ```
-
+(Если не работает pygame-ce можно установить оригинальную версию pygame)
 ---
 
 ## ▶️ Запуск
