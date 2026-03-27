@@ -115,7 +115,8 @@ TILE_H = 32
 ## 📸 Скриншот
 
 ```
-![test](./screenshot.png)
+![screenshot](https://github.com/user-attachments/assets/55f7427e-342c-4537-be3b-6c8c71cfceb1)
+
 ```
 
 ---
